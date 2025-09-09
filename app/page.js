@@ -39,37 +39,38 @@ export default function Home() {
   };
 
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <h1 className="text-3xl text-gray-300 font-semibold my-3">
-          S3 file uploader
+    <div className="min-h-screen w-full flex items-center justify-center p-4 bg-gray-900">
+      <main className="w-full max-w-md sm:max-w-lg bg-gray-800 p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg flex flex-col gap-6">
+        <h1 className="text-xl sm:text-2xl md:text-3xl text-center text-gray-200 font-semibold">
+          S3 File Uploader
         </h1>
 
-        <form onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-5">
-            <input
-              type="file"
-              onChange={(e) => setFile(e.target.files?.[0])}
-              className="p-5 bg-gray-300 text-black border-2 rounded-full font-serif text-xl hover:bg-gray-500 cursor-pointer transition 100"
-            />
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5">
+          <input
+            type="file"
+            onChange={(e) => setFile(e.target.files?.[0])}
+            className="p-3 sm:p-4 bg-gray-200 text-black border-2 rounded-lg font-medium text-sm sm:text-base hover:bg-gray-300 cursor-pointer transition"
+          />
 
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="p-5 bg-blue-300 text-black border-2 rounded-full font-serif text-xl hover:bg-blue-500 cursor-pointer transition 100 disabled:opacity-50"
-            >
-              {isLoading ? "Uploading..." : "Upload your file"}
-            </button>
-          </div>
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="p-3 sm:p-4 bg-blue-500 text-white rounded-lg font-medium text-sm sm:text-base hover:bg-blue-600 cursor-pointer transition disabled:opacity-50"
+          >
+            {isLoading ? "Uploading..." : "Upload your file"}
+          </button>
         </form>
 
         {fileUrl && (
-          <div className="mt-5">
-            <p className="text-green-400">Uploaded successfully!</p>
+          <div className="mt-3 sm:mt-4 text-center break-words">
+            <p className="text-green-400 mb-2 text-xs sm:text-sm md:text-base">
+              Uploaded successfully!
+            </p>
             <a
               href={fileUrl}
               target="_blank"
-              className="text-blue-400 underline"
+              rel="noopener noreferrer"
+              className="text-blue-400 underline text-xs sm:text-sm md:text-base"
             >
               {fileUrl}
             </a>
