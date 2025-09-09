@@ -13,11 +13,11 @@ export async function POST(req) {
   try {
     const formData = await req.formData();
     const file = formData.get("file");
-    console.log(file);
 
     if (!file) {
-      NextResponse.json({ error: "no file uploaded" }, { status: 400 });
+      return NextResponse.json({ error: "no file uploaded" }, { status: 400 });
     }
+
     const buffer = Buffer.from(await file.arrayBuffer());
     const fileName = `${Date.now()}-${file.name}`;
 
@@ -30,12 +30,11 @@ export async function POST(req) {
 
     await client.send(command);
 
-    //https://zaid-private-bucket.s3.us-east-1.amazonaws.com/uploads/1757423724419-image2.jpeg
-
-    const imageUrl = `https://zaid-private-bucket.s3.us-east-1.amazonaws.com/uploads/${fileName}`
+    const imageUrl = `https://${process.env.S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/uploads/${fileName}`;
 
     return NextResponse.json({ url: imageUrl }, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error });
+    console.error("Upload failed:", error);
+    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
   }
 }
