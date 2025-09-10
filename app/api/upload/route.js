@@ -30,6 +30,8 @@ export async function POST(req) {
 
     await client.send(command);
 
+    //https://zaid-private-bucket.s3.us-east-1.amazonaws.com/image1.png
+
     const imageUrl = `https://${process.env.S3_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/uploads/${fileName}`;
 
     return NextResponse.json({ url: imageUrl }, { status: 200 });
